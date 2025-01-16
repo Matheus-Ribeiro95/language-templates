@@ -53,7 +53,7 @@ Depois do pod estar executando:
 
     kubectl port-forward POD_NAME 8080
 
-Acesse [localhost:8080/static](http://localhost:8080/static/index.html)
+Acesse [localhost:8080](http://localhost:8080)
 
 ## Rust
 
@@ -63,7 +63,7 @@ Depois do pod estar executando:
 
     kubectl port-forward POD_NAME 3000 8080 9000
 
-Acesse [localhost:3000](http://localhost:3000/index.html)
+Acesse [localhost:3000](http://localhost:3000)
 
 ## PHP
 
@@ -79,11 +79,11 @@ Acesse [localhost:8080/static](http://localhost:8080/static)
 
 Configurando o repositório:
 
-    helm repo add matheus-ribeiro95 matheus-ribeiro95.gitlab.io/helm-charts
+    helm repo add matheus-ribeiro95 https://matheus-ribeiro95.github.io/helm-charts
 
 Atualize o repositório
 
-    helm repo update matheus-ribeiro95
+    helm repo update
 
 Para instalar
 
@@ -99,9 +99,8 @@ Depois do pod estar executando:
     PORTAS varia para cada linguagem
 
  - Javascript: 8080
- - Python: 8080
+ - Python: 8000
  - Go: 8080
  - Java: 8080
  - Rust: 3000 8080 9000
  - PHP: 8080 8081
-
