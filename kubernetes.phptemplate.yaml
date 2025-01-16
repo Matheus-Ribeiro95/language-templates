@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+spec:
+  selector:
+    matchLabels:
+      app: database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+        - name: template-scylladb
+          image: "registry.gitlab.com/matheus-ribeiro95/public-images/template:scylladb"
+          ports:
+            - containerPort: 9042
+      imagePullSecrets:
+        - name: gitlabregistry
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+spec:
+  selector:
+    app: database
+  ports:
+    - protocol: TCP
+      port: 9042
+      targetPort: 9042
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+spec:
+  selector:
+    matchLabels:
+      app: php
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+      containers:
+        - name: template-php
+          image: "registry.gitlab.com/matheus-ribeiro95/public-images/template:php-0.0.6"
+          env:
+            - name: SCYLLADB_URL
+              value: "database"
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: gitlabregistry
